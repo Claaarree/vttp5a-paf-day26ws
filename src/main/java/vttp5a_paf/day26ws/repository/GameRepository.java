@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import static vttp5a_paf.day26ws.utils.Constants.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class GameRepository {
@@ -55,5 +57,17 @@ public class GameRepository {
         List<Document> games = template.find(query, Document.class, C_GAMES);
         
         return games;
+    }
+
+    // db.games.findOne({gid: 1})
+    public Optional<Document> getGameDetails(int gameId) {
+        Criteria criteria = Criteria.where(F_GID)
+                .is(gameId);
+
+        Query query = Query.query(criteria);
+
+        Optional<Document> opt = Optional.ofNullable(template.findOne(query, Document.class, C_GAMES));
+
+        return opt;
     }
 }
