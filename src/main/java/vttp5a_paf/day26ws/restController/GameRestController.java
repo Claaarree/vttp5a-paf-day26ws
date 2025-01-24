@@ -24,4 +24,12 @@ public class GameRestController {
 
         return ResponseEntity.ok().body(results.toString());
     }
+
+    @GetMapping(path = "/games/rank", produces = "application/json")
+    public ResponseEntity<String> getGamesByRank(@RequestParam (defaultValue = "10") int limit, 
+    @RequestParam (defaultValue = "0") int offset) {
+        JsonObject results = gameService.getGamesByRank(limit, offset);
+
+        return ResponseEntity.ok().body(results.toString());
+    }
 }

@@ -68,6 +68,7 @@ public class Game {
         JsonObject jObject = Json.createObjectBuilder()
                 .add("game_id", doc.getInteger("gid"))
                 .add("name", doc.getString("name"))
+                .add("ranking", doc.getInteger("ranking"))
                 .build();
 
         return jObject;               
